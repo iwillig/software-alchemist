@@ -1,0 +1,24 @@
+---
+title: Software Archivist Manual
+author: Ivan Willig
+lang: en-US
+mainlang: english
+otherlang: english
+tags: [manual]
+abstract: |
+  A tool for working with LLM agents and code
+mainfont: Cascadia Code Mono
+# Filter preferences:
+# - pandoc-crossref
+linkReferences: true
+plantuml-format: svg
+citeproc: true
+link-citations: true
+css:
+  - css/pico.min.css
+  - css/docs.css
+  - css/highlighting.css
+sections:
+  - introduction.md
+  - readme.md
+---

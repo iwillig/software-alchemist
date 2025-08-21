@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'Cascadia Mono';
+  font-style: normal;
+  src: url('CascadiaMono.ttf') format('truetype');
+  font-display: fallback;
+}
+
+:root {
+    --pico-font-family: 'Cascadia Mono', monospace !important;
+    --pico-font-family-sans-serif: 'Cascadia Mono', monospace !important;
+    --pico-font-family-monospace: 'Cascadia Mono', monospace !important;
+}
+
+html, body, * {
+    font-family: 'Cascadia Mono', monospace !important;
+}
