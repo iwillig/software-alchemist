@@ -1,13 +1,9 @@
-# Software Archivist Documentation
+# Software Alchemist Documentation
 
-This project is an LLM focused knowledge base that helps software engineers
-use LLMs on their software projects.
+This project is an LLM focused knowledge base that helps software
+engineers use LLMs on their software projects.
 
 ## Install
-
-You will need python, SQLite and pandoc installed on your machine.
-
-You can install these dependencies via homebrew on both Mac OS and Linux
 
 ~~~{.shell}
 # brew bundle
@@ -18,7 +14,7 @@ You can install these dependencies via homebrew on both Mac OS and Linux
 ~~~
 
 ~~~{.shell}
-archivist --help
+# archivist --help
 ~~~
 
 ## Development
@@ -26,6 +22,5 @@ archivist --help
 To install the development requirements, please run the following command
 
 ~~~{.shell}
-# pipenv install
-# pipenv shell
+bb help
 ~~~

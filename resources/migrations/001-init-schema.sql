@@ -58,7 +58,7 @@ create table system (
        system_usage     text,
 
        system_level     integer references system_level(id),
-       lifecycle_state  integer references lifecycle_state(id),
+       lifecycle_state  integer references lifecycle_state(Cid),
        discipline       integer references discipline(name)
 );
 

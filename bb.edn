@@ -66,6 +66,15 @@
    (do
      (clojure "-M:dev:format -m cljstyle.main check scripts src dev"))}
 
+  typecheck
+  {:doc  "Run Typed Clojure type checking"
+   :task
+   (do
+     (bling/callout
+      {:type :info}
+      (bling/bling [:bold "Running type check"]))
+     (time
+      (clojure "-X:typecheck")))}
 
   ci
   {:doc  "Runs linting and tests for the CI"

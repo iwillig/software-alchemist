@@ -8,7 +8,8 @@
   metosin/jsonista                         {:mvn/version "0.3.12"}
   org.xerial/sqlite-jdbc                   {:mvn/version "3.49.1.0"}
   org.slf4j/slf4j-api                      {:mvn/version "2.0.17"}
-  org.slf4j/slf4j-simple                   {:mvn/version "2.0.17"}}
+  org.slf4j/slf4j-simple                   {:mvn/version "2.0.17"}
+  org.typedclojure/typed.clj.runtime       {:mvn/version "1.3.0"}}
 
  :paths ["src"
          "resources"]
@@ -20,7 +21,8 @@
                   lambdaisland/kaocha-cloverage   {:mvn/version "1.1.89"}
                   lambdaisland/kaocha-junit-xml   {:mvn/version "1.17.101"}
                   org.clojure/test.check          {:mvn/version "1.1.1"}
-                  com.gfredericks/test.chuck      {:mvn/version "0.2.13"}}
+                  com.gfredericks/test.chuck      {:mvn/version "0.2.13"}
+                  org.typedclojure/typed.clj.checker {:mvn/version "1.3.0"}}
                  :extra-paths ["dev" "test"]}
 
            :jvm-base
@@ -54,4 +56,9 @@
                    :exec-args  {:source-paths ["src"]}}
 
            :outdated
-           {:extra-deps {olical/depot {:mvn/version "1.8.4"}}}}}
+           {:extra-deps {olical/depot {:mvn/version "1.8.4"}}}
+           
+           :typecheck
+           {:extra-deps {org.typedclojure/typed.clj.checker {:mvn/version "1.3.0"}}
+            :exec-fn    typed.clj.checker/check
+            :exec-args  {:file-mapping {typed.clj.checker.check-config/file "typed.edn"}}}}}
