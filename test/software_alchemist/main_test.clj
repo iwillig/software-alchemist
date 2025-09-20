@@ -3,4 +3,4 @@
 
 (deftest test-okay
   (testing "Context of the test assertions"
-    (is (= #{} {}))))
+    (is (= #{} {}) "set should not equal map")))
