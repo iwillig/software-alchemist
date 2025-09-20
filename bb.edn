@@ -3,6 +3,8 @@
         io.github.paintparty/bling
         {:mvn/version "0.6.0"}}
 
+ :paths ["src" "test"]
+
  :tasks
  {:requires ([babashka.fs :as fs]
              [bling.core :as bling]
@@ -27,7 +29,7 @@
                           (bling/bling [:bold "Running test task"]))
 
            (time
-            (clojure "-M:jvm-base:dev:test")))}
+            (clojure "-M:dev:test")))}
 
   lint
   {:doc  "Lints the code base with clj-kondo"
@@ -65,16 +67,6 @@
    :task
    (do
      (clojure "-M:dev:format -m cljstyle.main check scripts src dev"))}
-
-  typecheck
-  {:doc  "Run Typed Clojure type checking"
-   :task
-   (do
-     (bling/callout
-      {:type :info}
-      (bling/bling [:bold "Running type check"]))
-     (time
-      (clojure "-X:typecheck")))}
 
   ci
   {:doc  "Runs linting and tests for the CI"

@@ -1,7 +1,7 @@
 (ns software-alchemist.config
   "Namespace that manages interacting with the projects config system."
   (:require [clj-yaml.core :as yaml]
-            [clojure.java.io :as io]
+            #_[clojure.java.io :as io]
             [malli.core :as m]))
 
 (def ^:private default-config-folder

@@ -2,9 +2,12 @@
   "The primary namespace for managing interactions with the alchemist
   project."
   (:require [next.jdbc :as jdbc]
+            [ragtime.next-jdbc :as ragtime.jdbc]
             [honey.sql :as honey.sql]
             [malli.core :as m]))
 
+;; ------------------------------
+;; basic sql operations
 (defn build-db-spec
   "Returns the JDBC connection map"
   [dbname]
@@ -18,8 +21,12 @@
 (def sql-statement-spec
   [:or [:seqable :string] :map])
 
+(comment
+  (m/assert sql-statement-spec {})
+  (m/assert sql-statement-spec ["string"]))
+
 (defn execute!
-  "Executes"
+  "Execute! against the ds with the honeysql expression."
   [ds sql-statement]
   (m/assert sql-statement-spec sql-statement-spec)
   (jdbc/execute!
@@ -27,13 +34,17 @@
    (honey.sql/format sql-statement)))
 
 (defn execute-one!
-  "Execute-one! "
+  "Execute-one! against the data source"
   [ds sql-statement]
   (m/assert sql-statement-spec sql-statement-spec)
   (jdbc/execute-one!
    ds
    (honey.sql/format sql-statement)))
 
+;; ------------------------------
+;; migrations
 
-(comment
-  (m/assert sql-statement-spec {}))
+(defn build-migration-config
+  []
+  {:datastore nil
+   :migrations nil})

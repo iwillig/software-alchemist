@@ -8,28 +8,32 @@
   metosin/jsonista                         {:mvn/version "0.3.12"}
   org.xerial/sqlite-jdbc                   {:mvn/version "3.49.1.0"}
   clj-commons/clj-yaml                     {:mvn/version "1.0.29"}
+
+  clj-antlr/clj-antlr                      {:mvn/version "0.2.14"}
   org.slf4j/slf4j-api                      {:mvn/version "2.0.17"}
   org.slf4j/slf4j-simple                   {:mvn/version "2.0.17"}}
 
  :paths ["src"
+         "test"
+         "dev"
          "resources"]
 
  :aliases {:dev {:extra-deps
-                 {vvvvalvalval/scope-capture      {:mvn/version "0.3.3"}
-                  org.clojure/tools.nrepl         {:mvn/version "0.2.11"}
-                  nubank/matcher-combinators      {:mvn/version "3.9.1"}
-                  lambdaisland/kaocha-cloverage   {:mvn/version "1.1.89"}
-                  lambdaisland/kaocha-junit-xml   {:mvn/version "1.17.101"}
-                  io.github.tonsky/clj-reload {:mvn/version "0.9.8"}
-                  org.clojure/test.check          {:mvn/version "1.1.1"}
-                  com.gfredericks/test.chuck      {:mvn/version "0.2.13"}}
-                 :extra-paths ["dev" "test"]}
+                 {vvvvalvalval/scope-capture    {:mvn/version "0.3.3"}
+                  org.clojure/tools.nrepl       {:mvn/version "0.2.11"}
+                  nubank/matcher-combinators    {:mvn/version "3.9.1"}
+
+                  io.github.tonsky/clj-reload   {:mvn/version "0.9.8"}
+                  org.clojure/test.check        {:mvn/version "1.1.1"}
+                  com.gfredericks/test.chuck    {:mvn/version "0.2.13"}}}
 
            :jvm-base
            {:jvm-opts ["-XX:-OmitStackTraceInFastThrow"]}
 
-           :test {:extra-paths ["test"]
-                  :extra-deps  {lambdaisland/kaocha {:mvn/version "1.91.1392"}}
+           :test {:extra-deps  {lambdaisland/kaocha {:mvn/version "1.91.1392"}
+                                lambdaisland/kaocha-cloverage {:mvn/version "1.1.89"}
+                                lambdaisland/kaocha-junit-xml {:mvn/version "1.17.101"}}
+
                   :main-opts   ["-m" "kaocha.runner"]}
 
            :nrepl

@@ -2,6 +2,8 @@
 
 LLM tools are a powerful way to develop software. They, however, have a
 set of limitations that can make working with them slow and error prone.
+
+
 LLM based coding agents can be erratic, often exploring bad solutions or
 not following your engineering team's best practices. They are, after
 all, stochastic parrots.
@@ -11,12 +13,14 @@ sophisticated knowledge base from your code designed to interface with
 modern LLM based coding tools like Claude Code or OpenAI Codex.
 
 Software Archivist scans your software repository. Using an LLM and more
-traditional software tools, Software Archivist builds a help knowledge
-base that is designed to help you manage your software project.
+traditional software tools, Software Archivist builds a knowledge
+base that is designed to help you and the LLM manage your software project.
 
 Core to the idea behind this project is that given enough prompting and
 metadata about your software project, LLM agents can become more
 effective by loading and shaping the LLM's context window.
+
+The context is more important than the model in many ways.
 
 ** Use cases
 - Generate Claude Code implementation plans
