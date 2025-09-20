@@ -14,6 +14,14 @@
   []
   (reload/reload))
 
+(defn migrate
+  []
+  (ragtime.repl/migrate (alchemist.db/build-migration-config db-name)))
+
+(defn rollback
+  []
+  (ragtime.repl/rollback (alchemist.db/build-migration-config db-name)))
+
 (comment
 
   (ragtime.repl/migrate (alchemist.db/build-migration-config db-name))
