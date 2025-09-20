@@ -1,0 +1,4 @@
+name: software-archivist
+database: config.db
+language: clojure
+vcs-system: git

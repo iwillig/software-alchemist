@@ -4,12 +4,18 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pandoc-plantuml-filter = "*"
+pypandoc = "*"
 pandoc-numbering = "*"
-pandoc-mustache = "*"
 pandoc-include = "*"
+pandoc-plantuml-filter = "*"
+watchfiles = "*"
+rich = "*"
+requests = "*"
+click = "*"
+pyyaml = "*"
 
 [dev-packages]
+ruff = "*"
 
 [requires]
 python_version = "3.13"

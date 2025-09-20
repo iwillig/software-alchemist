@@ -1,0 +1,12 @@
+[files]
+extend-exclude = [
+    "*.lock",
+    "node_modules",
+    ".git",
+    "css/*.min.css",
+]
+
+[default.extend-words]
+# Add project-specific words that should not be flagged as typos
+# Example:
+# grpc = "grpc"  # Not a typo of "grip"

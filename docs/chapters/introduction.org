@@ -1,0 +1,261 @@
+* Introduction Software Archivist
+
+LLM tools are a powerful way to develop software. They, however, have a
+set of limitations that can make working with them slow and error prone.
+LLM based coding agents can be erratic, often exploring bad solutions or
+not following your engineering team's best practices. They are, after
+all, stochastic parrots.
+
+Software Archivist is designed to help software engineers build a
+sophisticated knowledge base from your code designed to interface with
+modern LLM based coding tools like Claude Code or OpenAI Codex.
+
+Software Archivist scans your software repository. Using an LLM and more
+traditional software tools, Software Archivist builds a help knowledge
+base that is designed to help you manage your software project.
+
+Core to the idea behind this project is that given enough prompting and
+metadata about your software project, LLM agents can become more
+effective by loading and shaping the LLM's context window.
+
+** Use cases
+- Generate Claude Code implementation plans
+  - Ensures Claude follows your best practices
+  - Minimize your Claude bills
+- Support local LLM's
+- Detect your c4 System diagrams from code and knowledge base.
+- Include your code comments in a full text search
+- Work with a LLM based agents to survey your code base
+- Detect when doc strings become out of date.
+- Detect ADR's that you should have written, but did not.
+- Detect when ADR's become out of date
+
+** Rationale
+
+LLMs can be powerful tools for software engineers. They can also be
+difficult to use effectively. This project aims to explore how we can
+better use these tools in the area of software development.
+
+** Architecture
+
+#+begin_src plantuml
+@startuml
+!include <C4/C4_Container>
+
+Person(personAlias, "Software Engineer", "An engineer who wants to manage their software project")
+
+Container(containerAlias, "Software Archivist", "python", "A sophisticated knowledge management tool for software projects and LLMs")
+
+Rel(personAlias, containerAlias, "Uses software archivist to manage their software projects")
+
+@enduml
+#+end_src
+
+*** Component Definitions
+
+** Data Model
+
+#+begin_src plantuml
+@startuml
+skinparam linetype ortho
+
+entity people.Person {
+   *slug : text <<PK>>
+   --
+   name : text <<unique>>
+   person_team : integer <<FK>>
+}
+
+entity people.Team {
+   *id : integer <<PK>>
+   --
+   name : text <<unique>>
+}
+
+entity people.PersonDiscipline {
+   *id : integer <<PK>>
+   --
+   person : text <<FK>>
+   software_discipline : text <<FK>>
+}
+
+entity software.Discipline {
+   *slug : text <<PK>>
+   --
+   description : text
+   platform : text
+}
+
+entity software.Repo {
+   *slug : text <<PK>>
+   --
+   url : text
+   software_discipline : text <<FK>>
+}
+
+entity software.System {
+   *slug : text <<PK>>
+   --
+   display_name : text
+   system_usage : text
+   system_level : integer <<FK>>
+   lifecycle_state : integer <<FK>>
+   software_discipline : text <<FK>>
+}
+
+entity software.Document {
+   *id : integer <<PK>>
+   --
+   name : text <<unique>>
+   document_type : text <<FK>>
+   document_format : text <<FK>>
+}
+
+entity software.GitCommit {
+   *sha : text <<PK>>
+   --
+   repo : text <<FK>>
+   author_name : text
+   author_email : text
+   committer_name : text
+   committer_email : text
+   authored_date : datetime
+   committed_date : datetime
+   message : text
+   files_changed : integer
+   insertions : integer
+   deletions : integer
+   parent_shas : text
+}
+
+entity software.Module {
+   *id : integer <<PK>>
+   --
+   file_path : text <<unique>>
+   file_name : text
+   module_name : text
+   extension : text
+   language : text
+   repo : text <<FK>>
+   size_bytes : integer
+   lines_of_code : integer
+   last_modified : datetime
+   content_hash : text
+   is_test : boolean
+   package_path : text
+}
+
+entity metadata.SystemLevel {
+   *id : integer <<PK>>
+   --
+   name : text <<unique>>
+   description : text
+}
+
+entity metadata.LifecycleState {
+   *id : integer <<PK>>
+   --
+   lifecycle_type : text <<FK>>
+   name : text
+}
+
+entity metadata.LifecycleStateType {
+   *name : text <<PK>>
+   --
+   description : text
+}
+
+entity metadata.DocumentType {
+   *slug : text <<PK>>
+}
+
+entity metadata.DocumentFormat {
+   *slug : text <<PK>>
+}
+
+entity relationships.DocumentRelevantSystem {
+   *id : integer <<PK>>
+   --
+   document : integer <<FK>>
+   software_system : text <<FK>>
+}
+
+entity relationships.SystemLocation {
+   *id : integer <<PK>>
+   --
+   software_repo : text <<FK>>
+   software_system : text <<FK>>
+}
+
+entity knowledge.KnowledgeLevel {
+   *slug : text <<PK>>
+   --
+   description : text
+}
+
+entity knowledge.KnowledgeOfSystem {
+   *id : integer <<PK>>
+   --
+   knowledge_level : text <<FK>>
+   person : text <<FK>>
+   software_system : text <<FK>>
+   software_discipline : text <<FK>>
+}
+
+' Relationships
+people.Person }o--|| people.Team
+people.PersonDiscipline }o--|| people.Person
+people.PersonDiscipline }o--|| software.Discipline
+software.Repo }o--|| software.Discipline
+software.System }o--|| metadata.SystemLevel
+software.System }o--|| metadata.LifecycleState
+software.System }o--|| software.Discipline
+metadata.LifecycleState }o--|| metadata.LifecycleStateType
+software.Document }o--|| metadata.DocumentType
+software.Document }o--|| metadata.DocumentFormat
+relationships.DocumentRelevantSystem }o--|| software.Document
+relationships.DocumentRelevantSystem }o--|| software.System
+relationships.SystemLocation }o--|| software.Repo
+relationships.SystemLocation }o--|| software.System
+knowledge.KnowledgeOfSystem }o--|| knowledge.KnowledgeLevel
+knowledge.KnowledgeOfSystem }o--|| people.Person
+knowledge.KnowledgeOfSystem }o--|| software.System
+knowledge.KnowledgeOfSystem }o--|| software.Discipline
+software.GitCommit }o--|| software.Repo
+software.Module }o--|| software.Repo
+
+@enduml
+#+end_src
+
+** Storage
+
+Archivist uses two main storage formats, a SQLite database and a YAML
+configuration file. Each software project, once initialized by archivist
+init, will have a =.archivist/config.yaml= file and an =archivist.db=
+file.
+
+#+begin_src yaml
+name: software-archivist
+database: archivist.db
+language: python
+vcs-system: git
+#+end_src
+
+** Command line tools
+
+** archivist --help
+** archivist init
+** archivist scan
+This tool scans your project and initializes the knowledge base.
+
+** archivist scan-git
+
+This command scans git repositories and stores commit history in the
+database. It extracts commit metadata including authors, dates,
+messages, and change statistics. Commit messages are indexed using
+SQLite's FTS5 (Full-Text Search) for fast searching.
+
+** archivist query
+** archivist llm-chat
+** archivist templates
+** archivist templates generate

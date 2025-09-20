@@ -1,24 +1,12 @@
----
-title: Software Archivist Manual
-author: Ivan Willig
-lang: en-US
-mainlang: english
-otherlang: english
-tags: [manual]
-abstract: |
-  A tool for working with LLM agents and code
-mainfont: Cascadia Code Mono
-# Filter preferences:
-# - pandoc-crossref
-linkReferences: true
-plantuml-format: svg
-citeproc: true
-link-citations: true
+title: "Software alchemist Docs"
+author: "Ivan Willig"
+email: "iwillig@gmail.com"
+description: "Software Alchemist Docs"
+lang: "en-US"
+toc-title: "Table of Contents"
+sections:
+  - chapters/introduction.org
 css:
   - css/pico.min.css
   - css/docs.css
   - css/highlighting.css
-sections:
-  - introduction.md
-  - readme.md
----

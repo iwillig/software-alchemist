@@ -1,0 +1,14 @@
+# Brewfile for Pandoc Documentation Tool
+# Install with: brew bundle
+
+# Document conversion engine
+brew "pandoc"
+
+# YAML processor for Makefile
+brew "yq"
+
+# Python package management
+brew "pipenv"
+
+# Spell checking
+brew "typos-cli"

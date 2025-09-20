@@ -1,0 +1,27 @@
+* Software Alchemist Documentation
+
+This project is an LLM focused knowledge base that helps software
+engineers use LLMs on their software projects.
+
+** Install
+
+#+begin_src shell
+brew bundle
+#+end_src
+
+#+begin_src shell
+java -jar software-archivist.jar
+#+end_src
+
+#+begin_src shell
+archivist --help
+#+end_src
+
+** Development
+
+To install the development requirements, please run the following
+command
+
+#+begin_src shell
+bb help
+#+end_src
