@@ -45,6 +45,6 @@
 ;; migrations
 
 (defn build-migration-config
-  []
-  {:datastore nil
-   :migrations nil})
+  [dbname]
+  {:datastore (ragtime.jdbc/sql-database (build-db-spec dbname))
+   :migrations (ragtime.jdbc/load-directory "migrations")})
