@@ -5,11 +5,24 @@ engineers use LLMs on their software projects.
 
 ** Install
 
+*** Brew (Linux and MacOS)
+
 #+begin_src shell
 brew bundle
 #+end_src
 
-#+begin_src shell
+*** SDKMAN
+
+We use SDKMAN to manage our version of Java
+
+#+BEGIN_SRC shell
+sdk env
+#+END_SRC
+
+
+** Running
+
+,#+begin_src shell
 java -jar software-archivist.jar
 #+end_src
 
@@ -23,5 +36,5 @@ To install the development requirements, please run the following
 command
 
 #+begin_src shell
-bb help
+bb tasks
 #+end_src
