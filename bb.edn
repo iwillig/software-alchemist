@@ -29,7 +29,7 @@
                           (bling/bling [:bold "Running test task"]))
 
            (time
-            (clojure "-M:dev:test")))}
+            (clojure "-M:jvm-base:dev:test")))}
 
   lint
   {:doc  "Lints the code base with clj-kondo"
