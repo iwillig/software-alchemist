@@ -1,9 +1,1 @@
-drop table if exists discipline;
-drop table if exists person_team;
-drop table if exists person;
-drop table if exists person_discipline;
-drop table if exists repo;
-drop table if exists system_level;
-drop table if exists lifecycle_state_type;
-drop table if exists lifecycle_state;
-drop table if exists system;
+drop table if not exists symbol;

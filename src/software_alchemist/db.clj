@@ -48,7 +48,7 @@
   [dbname]
   {:datastore  (ragtime.jdbc/sql-database (build-db-spec dbname)
                                           {:migrations-table "migrations"})
-   :migrations (ragtime.jdbc/load-directory "migrations")})
+   :migrations (ragtime.jdbc/load-resources "migrations")})
 
 (comment
 
