@@ -1,23 +1,15 @@
 (ns software-alchemist.main
   "Main interface for Software Alchemist
 
-  java -cp target/software-alchemist.jar clojure.main -m software-alchemist.main
-
-  "
-  (:require [clojure.tools.cli :refer [parse-opts]])
+  java -cp target/software-alchemist.jar clojure.main -m software-alchemist.main"
+  (:require
+   [clojure.tools.cli :refer [parse-opts]]
+   [software-alchemist.sub-commands.init :as sub-command.init]
+   [software-alchemist.sub-commands :as sub-commands])
   (:gen-class))
 
 (def cli-options
   [["-h" "--help"]])
-
-(defn exit
-  [status msg]
-  (println msg)
-  (System/exit status))
-
-(defn usage
-  [summary]
-  summary)
 
 (def sub-commands #{"init"})
 
@@ -31,27 +23,19 @@
       {:sub-command (first arguments) :options options}
 
       (:help options)
-      {:exit-message (usage summary) :ok? true}
+      {:exit-message (sub-commands/usage summary) :ok? true}
 
       (some? errors)
       {:exit-message "no-okay" :ok? false}
 
       :else
-      {:exit-message (usage summary) :ok? true})))
-
-(defn init
-  [options]
-  (cond
-    (:help options)
-    {:exit-message (str "init " (usage options)) :ok? true}
-    :else (do (println :init options))))
+      {:exit-message (sub-commands/usage summary) :ok? true})))
 
 (defn -main
   "Main Command Line Function"
   [& args]
   (let [{:keys [options exit-message ok? sub-command] :as _args} (validate-args args)]
-    (println _args)
     (if exit-message
-      (exit (if ok? 0 1) exit-message)
+      (sub-commands/exit (if ok? 0 1) exit-message)
       (case sub-command
-        "init" (init options)))))
+        "init" (sub-command.init/run options)))))
