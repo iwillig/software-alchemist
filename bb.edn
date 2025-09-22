@@ -43,6 +43,18 @@
   main {:doc "Run the main command line inteface"
         :task (clojure "-M:main")}
 
+  compile {:doc "Compile Main Clojure namespace"
+           :task (clojure "-M -e \"(compile 'software-alchemist.main)\"")}
+
+
+  build-uberjar {:doc "Build UberJar Jar"
+                 :task (clojure "-M:uberdeps --main-class software-alchemist.main")}
+
+  build-cli {:doc "Rebuild Command Line Tool"
+             :task (do (run 'clean)
+                       (run 'compile)
+                       (run 'build-uberjar))}
+
   outdated
   {:doc  "Run command to detect outdate version of our deps"
    :task (clojure "-M:dev:outdated -m depot.outdated.main")}

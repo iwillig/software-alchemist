@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# --- Script Configuration ---
+# Get the absolute path to the directory containing this script.
+
+# Define the path to the JAR file relative to the script directory.
+
+JAR_PATH="/home/ivan/dev/software-alchemist/target/software-alchemist.jar"
+
+# Set default Java options (e.g., memory settings).
+# These can be overridden by setting the JAVA_OPTS environment variable.
+JAVA_OPTS="${JAVA_OPTS:--Xms512m -Xmx1024m}"
+
+# --- Execution Logic ---
+
+# Check if the JAR file exists.
+if [ ! -f "${JAR_PATH}" ]; then
+  echo "Error: JAR file not found at ${JAR_PATH}"
+  exit 1
+fi
+
+# Execute the Java application, passing all script arguments.
+# The "$@" variable forwards all command-line arguments to the Java command.
+java ${JAVA_OPTS} -jar "${JAR_PATH}" "$@"
+
+# Exit with the same status code as the Java process.
+exit $?
