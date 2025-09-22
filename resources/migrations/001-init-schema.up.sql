@@ -4,12 +4,45 @@ PRAGMA foreign_keys = ON;
 
 -- ;;
 
+create table file (
+       id integer primary key,
+       path text unique
+);
+
+
+-- ;;
+
 create table symbol (
-       name primary key,
+       id integer primary key
+       name text unique
        type text,
        value text,
        value_type text
 );
+
+-- ;;
+
+create table namespace (
+       id integer primary key,
+       name text unique
+);
+
+
+-- ;;
+
+create table component (
+       id integer primary key,
+       name text unique
+);
+
+
+-- ;;
+
+create table document (
+       id integer primary key,
+       name text unique
+);
+
 
 -- ;;
 

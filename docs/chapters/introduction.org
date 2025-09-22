@@ -57,7 +57,49 @@ Rel(personAlias, containerAlias, "Uses software archivist to manage their softwa
 
 *** Component Definitions
 
-** Data Model
+** Core data model
+
+#+BEGIN_SRC plantuml
+@startuml
+skinparam linetype ortho
+
+entity File {
+        path: text <<unique>>
+}
+
+entity Symbol {
+        name: text <<unique>>
+}
+
+entity Namespace {
+        name: text <<unique>>
+}
+
+entity Component {
+        name: text <<unique>>
+
+}
+
+entity System {
+        name: text <<unique>>
+}
+
+entity Document {
+        name: text <<unique>>
+}
+
+Symbol ||--|| Namespace
+Namespace ||--|| Component
+Namespace ||--|| File
+Component ||--|| System
+Symbol ||--|| Document
+Namespace ||--|| Document
+
+@enduml
+#+END_SRC
+
+
+** Secondary Data Model
 
 #+begin_src plantuml
 @startuml
@@ -247,19 +289,20 @@ vcs-system: git
 
 ** Command line tools
 
-** archivist --help
-** archivist init
-** archivist scan
+*** archivist --help
+*** archivist parse
+*** archivist init
+*** archivist scan
 This tool scans your project and initializes the knowledge base.
 
-** archivist scan-git
+*** archivist scan-git
 
 This command scans git repositories and stores commit history in the
 database. It extracts commit metadata including authors, dates,
 messages, and change statistics. Commit messages are indexed using
 SQLite's FTS5 (Full-Text Search) for fast searching.
 
-** archivist query
-** archivist llm-chat
-** archivist templates
-** archivist templates generate
+*** archivist query
+*** archivist llm-chat
+*** archivist templates
+*** archivist templates generate

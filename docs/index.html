@@ -120,12 +120,18 @@
       <li><a href="#component-definitions"
       id="toc-component-definitions">Component Definitions</a></li>
       </ul></li>
-      <li><a href="#data-model" id="toc-data-model">Data Model</a></li>
+      <li><a href="#core-data-model" id="toc-core-data-model">Core data
+      model</a></li>
+      <li><a href="#secondary-data-model"
+      id="toc-secondary-data-model">Secondary Data Model</a></li>
       <li><a href="#storage" id="toc-storage">Storage</a></li>
       <li><a href="#command-line-tools"
-      id="toc-command-line-tools">Command line tools</a></li>
+      id="toc-command-line-tools">Command line tools</a>
+      <ul>
       <li><a href="#archivist-help" id="toc-archivist-help">archivist
       –help</a></li>
+      <li><a href="#archivist-parse" id="toc-archivist-parse">archivist
+      parse</a></li>
       <li><a href="#archivist-init" id="toc-archivist-init">archivist
       init</a></li>
       <li><a href="#archivist-scan" id="toc-archivist-scan">archivist
@@ -142,6 +148,7 @@
       id="toc-archivist-templates-generate">archivist templates
       generate</a></li>
       </ul></li>
+      </ul></li>
       </ul>
     </div>
 
@@ -151,22 +158,23 @@
       Archivist</h1>
       <p>LLM tools are a powerful way to develop software. They,
       however, have a set of limitations that can make working with them
-      slow and error prone. LLM based coding agents can be erratic,
-      often exploring bad solutions or not following your engineering
-      team's best practices. They are, after all, stochastic
-      parrots.</p>
+      slow and error prone.</p>
+      <p>LLM based coding agents can be erratic, often exploring bad
+      solutions or not following your engineering team's best practices.
+      They are, after all, stochastic parrots.</p>
       <p>Software Archivist is designed to help software engineers build
       a sophisticated knowledge base from your code designed to
       interface with modern LLM based coding tools like Claude Code or
       OpenAI Codex.</p>
       <p>Software Archivist scans your software repository. Using an LLM
       and more traditional software tools, Software Archivist builds a
-      help knowledge base that is designed to help you manage your
-      software project.</p>
+      knowledge base that is designed to help you and the LLM manage
+      your software project.</p>
       <p>Core to the idea behind this project is that given enough
       prompting and metadata about your software project, LLM agents can
       become more effective by loading and shaping the LLM's context
       window.</p>
+      <p>The context is more important than the model in many ways.</p>
       <h2 id="use-cases">Use cases</h2>
       <ul>
       <li>Generate Claude Code implementation plans
@@ -192,7 +200,10 @@
       <p><img
       src="plantuml-images/8a01b9c66e1cc185b875c07e571b27bc118af2a2.svg" /></p>
       <h3 id="component-definitions">Component Definitions</h3>
-      <h2 id="data-model">Data Model</h2>
+      <h2 id="core-data-model">Core data model</h2>
+      <p><img
+      src="plantuml-images/e9133137a5475b5db75f10488d001a9ea1aef63f.svg" /></p>
+      <h2 id="secondary-data-model">Secondary Data Model</h2>
       <p><img
       src="plantuml-images/3dbbaccabd4f0cd57e160e510229061138bef797.svg" /></p>
       <h2 id="storage">Storage</h2>
@@ -207,22 +218,23 @@
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">language</span><span class="kw">:</span><span class="at"> python</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">vcs-system</span><span class="kw">:</span><span class="at"> git</span></span></code></pre></div>
       <h2 id="command-line-tools">Command line tools</h2>
-      <h2 id="archivist-help">archivist –help</h2>
-      <h2 id="archivist-init">archivist init</h2>
-      <h2 id="archivist-scan">archivist scan</h2>
+      <h3 id="archivist-help">archivist –help</h3>
+      <h3 id="archivist-parse">archivist parse</h3>
+      <h3 id="archivist-init">archivist init</h3>
+      <h3 id="archivist-scan">archivist scan</h3>
       <p>This tool scans your project and initializes the knowledge
       base.</p>
-      <h2 id="archivist-scan-git">archivist scan-git</h2>
+      <h3 id="archivist-scan-git">archivist scan-git</h3>
       <p>This command scans git repositories and stores commit history
       in the database. It extracts commit metadata including authors,
       dates, messages, and change statistics. Commit messages are
       indexed using SQLite's FTS5 (Full-Text Search) for fast
       searching.</p>
-      <h2 id="archivist-query">archivist query</h2>
-      <h2 id="archivist-llm-chat">archivist llm-chat</h2>
-      <h2 id="archivist-templates">archivist templates</h2>
-      <h2 id="archivist-templates-generate">archivist templates
-      generate</h2>
+      <h3 id="archivist-query">archivist query</h3>
+      <h3 id="archivist-llm-chat">archivist llm-chat</h3>
+      <h3 id="archivist-templates">archivist templates</h3>
+      <h3 id="archivist-templates-generate">archivist templates
+      generate</h3>
     </div>
 
     
