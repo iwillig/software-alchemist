@@ -34,8 +34,14 @@
 (defn -main
   "Main Command Line Function"
   [& args]
-  (let [{:keys [options exit-message ok? sub-command] :as _args} (validate-args args)]
-    (if exit-message
-      (sub-commands/exit (if ok? 0 1) exit-message)
-      (case sub-command
-        "init" (sub-command.init/run options)))))
+  (let [{:keys [options sub-command] :as results} (validate-args args)
+
+        {:keys [options exit-message ok? sub-command]}
+
+        (if (some? sub-command)
+          (case sub-command
+            "init" (sub-command.init/run options))
+
+          results)]
+
+    (sub-commands/exit (if ok? 0 1) exit-message)))

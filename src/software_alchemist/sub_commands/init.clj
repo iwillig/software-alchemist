@@ -6,4 +6,6 @@
   (cond
     (:help options)
     {:exit-message (str "init " (sub-commands/usage options)) :ok? true}
-    :else (do (println :init options))))
+    :else (do
+            (println ";; init sub command")
+            (println :init options))))
