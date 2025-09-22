@@ -6,7 +6,7 @@
    [clj-reload.core :as reload]))
 
 (reload/init
-  {:dirs ["src" "dev" "test"]})
+ {:dirs ["src" "dev" "test"]})
 
 (def db-name "dev.db")
 
@@ -16,14 +16,10 @@
 
 (defn migrate
   []
-  (ragtime.repl/migrate (alchemist.db/build-migration-config db-name)))
+  (ragtime.repl/migrate
+   (alchemist.db/build-migration-config db-name)))
 
 (defn rollback
   []
-  (ragtime.repl/rollback (alchemist.db/build-migration-config db-name)))
-
-(comment
-
-  (ragtime.repl/migrate (alchemist.db/build-migration-config db-name))
-
-  )
+  (ragtime.repl/rollback
+   (alchemist.db/build-migration-config db-name)))
