@@ -3,45 +3,19 @@
 
   java -cp target/software-alchemist.jar clojure.main -m software-alchemist.main"
   (:require
-   [clojure.tools.cli :refer [parse-opts]]
+   [cli-matic.core :as cli-matic]
    [software-alchemist.sub-commands.init :as sub-command.init]
    [software-alchemist.sub-commands :as sub-commands])
   (:gen-class))
 
-(def cli-options
-  [["-h" "--help"]])
-
-(def sub-commands #{"init"})
-
-(defn validate-args
-  [args]
-  (let [{:keys [options errors arguments summary]} (parse-opts args cli-options)]
-
-    (cond
-
-      (contains? sub-commands (first arguments))
-      {:sub-command (first arguments) :options options}
-
-      (:help options)
-      {:exit-message (sub-commands/usage summary) :ok? true}
-
-      (some? errors)
-      {:exit-message "no-okay" :ok? false}
-
-      :else
-      {:exit-message (sub-commands/usage summary) :ok? true})))
+(def cli-configuration
+  {:app {:command     "alchemist"
+         :description "A command line tool for generating knowledge bases from your code base."
+         :version     "0.0.1"}
+   :commands [{:command "init"
+               :description ["Initializes the project in your repo"]}]})
 
 (defn -main
   "Main Command Line Function"
   [& args]
-  (let [{:keys [options sub-command] :as results} (validate-args args)
-
-        {:keys [options exit-message ok? sub-command]}
-
-        (if (some? sub-command)
-          (case sub-command
-            "init" (sub-command.init/run options))
-
-          results)]
-
-    (sub-commands/exit (if ok? 0 1) exit-message)))
+  (cli-matic/run-cmd args cli-configuration))
