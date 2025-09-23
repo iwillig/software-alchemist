@@ -46,7 +46,6 @@
   compile {:doc "Compile Main Clojure namespace"
            :task (clojure "-M -e \"(compile 'software-alchemist.main)\"")}
 
-
   build-uberjar {:doc "Build UberJar Jar"
                  :task (clojure "-M:uberdeps --main-class software-alchemist.main")}
 
@@ -54,6 +53,9 @@
              :task (do (run 'clean)
                        (run 'compile)
                        (run 'build-uberjar))}
+
+  build-gvm {:doc ""
+             :task (shell "native-image --no-fallback --initialize-at-build-time -jar target/software-alchemist.jar ")}
 
   outdated
   {:doc  "Run command to detect outdate version of our deps"
